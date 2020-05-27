@@ -1,0 +1,43 @@
+﻿@model LibraryMVC.Models.Loan
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>LoanBook</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Loan book @ViewBag.book.Title @ViewBag.book.Isbn</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="col-md-10">
+        <p>Select Library User:</p>
+        @Html.DropDownListFor(model => model.LibraryUserId, new SelectList(ViewBag.usersList, "Id", "Representation"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.LibraryUserId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="col-md-10">
+        <p>Return date:</p>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ReturnDate)
+            @Html.ValidationMessageFor(model => model.ReturnDate)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
